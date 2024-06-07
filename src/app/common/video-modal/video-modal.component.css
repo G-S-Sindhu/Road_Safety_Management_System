@@ -1,0 +1,63 @@
+.video-modal{
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    flex-direction: row;
+    align-items: center !important;
+    position: relative;
+    /* background-color: transparent !important; */
+    justify-content: center !important;
+    align-items: center !important;
+
+}
+
+
+.video-container{
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+ width: 100%;
+ height:80% !important;
+ margin-bottom: 6.1rem !important;
+ padding:2rem !important;
+ overflow: auto;
+
+
+
+}
+
+
+.modal {
+  --bs-modal-bg:transparent;
+}
+
+.modal-header{
+    background-color: transparent !important;
+    color: white;
+}
+
+.carousal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item{
+  /* display: flex !important;
+  justify-content: center;
+   align-items: center; */
+
+}
+.carousel-item.active{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.custom-video{
+    width: 60rem !important;
+    height:30rem;
+    /* border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f2; */
+}

@@ -1,0 +1,52 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent" class="p-2">
+    <!---Logo-->
+    <div class="fadeIn first mb-2">
+      <img src="assets/images/DocketRun_logo.png" id="icon" />
+    </div>
+    <!-- <div class="mb-3 mt-4" class="text-muted" style="font-family: 'Times New Roman', Times, serif;"><h5><b>Admin</b></h5></div> -->
+
+    <!-------->
+    <form [formGroup]="authForm" (ngSubmit)="OnSubmit()">
+      <input
+        type="text"
+        id="userName"
+        class="fadeIn second"
+        [formControlName]="'userName'"
+        placeholder="User name"
+        (keyup.enter)="ToNextField('password')"
+      />
+      <!-- <p *ngIf="email.invalid&&email.touched" class="help-block mb-2"><small style="color: red;">*Email is
+          required</small></p> -->
+
+      <input
+        type="password"
+        id="password"
+        class="fadeIn third"
+        [formControlName]="'password'"
+        placeholder="Password"
+        (keyup.enter)="OnSubmit()"
+      />
+
+      <!-- <p *ngIf="password.invalid&&password.touched" class="help-block mb-2"><small style="color: red;">*password is
+        required</small></p> -->
+
+      <!-- <small><a (click)="ForgotFunction()" style="cursor: pointer;" class="underlineHover" *ngIf="emailName.valid"><u>forgot password?</u></a></small><br> -->
+
+      <p *ngIf="fail" style="color: rgb(208, 30, 30)">
+        <small>userName and password is incorrect</small>
+      </p>
+      <button type="submit" [disabled]="authForm.invalid" class="fadeIn fourth" (click)="OnSubmit()">
+        <div *ngIf="isLoading">
+          <span
+            class="spinner-border spinner-border-sm me-1"
+            role="status"
+            aria-hidden="true"
+          ></span
+          >LOGGING IN...
+        </div>
+        <div *ngIf="!isLoading">LOG IN</div>
+      </button>
+    </form>
+  </div>
+</div>

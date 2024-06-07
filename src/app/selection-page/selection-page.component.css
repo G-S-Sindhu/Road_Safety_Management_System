@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+}
+.card {
+    width: 400px;
+    height: 350px;
+    background-color: #ffffff !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333; /* Default text color */
+    font-size: 20px; /* Default font size */
+}
+/* You can change the text color and size for specific cards by adding additional classes */
+.card.blue {
+    color: blue; /* Change text color to blue */
+}
+.card.large-text {
+    font-size: 24px; /* Increase font size */
+}

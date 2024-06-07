@@ -1,0 +1,88 @@
+#data-card.card{
+
+    box-shadow: none !important;
+    border-radius: 10px !important;
+    /* border: 1px solid #ccc !important; */
+}
+
+.date-picker{
+    position: relative;
+    border: 2px solid var(--gray-light);
+  background-color:white !important;
+  padding: 5px;
+  border-radius: 10px;
+    display: flex;
+    height: 2.9rem;
+    /* height: 2.5em; */
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 8px rgba(94,104,121,0.3) !important;
+
+}
+.container{
+  position: relative;
+  background-color:white !important;
+  opacity: 1;
+  padding: 5px;
+  border-radius: 10px;
+  border:1px solid #ccc;
+    display: flex;
+    height: 2.9em;
+    justify-content: space-between;
+    align-items: center;
+    /* display: inline; */
+    box-shadow:  5px 5px 8px rgba(94,104,121,0.3) !important;
+}
+.date-picker input{
+    /* background-color: var(--light-black) !important; */
+
+    border: none !important;
+
+}
+
+.date-picker fa-icon{
+    margin-right: 0.4rem !important;
+}
+
+.date-picker input:active{
+    /* background-color: var(--light-black) !important; */
+
+    box-shadow: none !important;
+    border: none;
+    
+}
+/* 
+.modal {
+    --bs-modal-bg:transparent !important;
+  } */
+
+
+  ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    background-color:  #f8f8f8 !important;
+    border-radius: 5px !important;
+    /* border: 1px solid var(--label-color) !important; */
+    color: var(--label-color) !important;
+    box-shadow: none;
+  }
+  
+  ngb-pagination ::ng-deep ul > li.active > a {
+    background-color: var(--label-color) !important;
+    border-radius: 5px !important;
+    border: 1px solid var(--label-color) !important;
+  
+    box-shadow: none;
+  
+  }
+
+  thead{
+    background-color: #E6EEF4 !important;
+    height: 3.5rem;
+    text-align: center;
+    border-radius: 10px !important;
+  
+  }
+
+  td {
+    text-align:center !important;
+    height: 2rem !important;
+  }

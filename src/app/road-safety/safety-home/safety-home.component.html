@@ -1,0 +1,21 @@
+<div>
+    <div>
+      <app-safety-sidebar></app-safety-sidebar>
+    </div>
+    <main>
+      <div class="">
+        <app-safety-header></app-safety-header>
+        <div class="dashboard-wrapper">
+          <!-- <header style="height: 6em;">
+                 <app-header></app-header>
+             </header> -->
+          <div class="dashboard-content">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <nav class="bg-white fixed-bottom" id="footer">
+          <app-safety-footer></app-safety-footer>
+        </nav>
+      </div>
+    </main>
+</div>

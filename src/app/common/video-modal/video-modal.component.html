@@ -1,0 +1,39 @@
+    <!-- <div class="modal-header" style="background:transparent !important">
+        <button type="button" class="btn btn-default close float-end" aria-label="Close" (click)="modal.close('Cross click')">
+            <span aria-hidden="true" class="text-dark">&times;</span>
+        </button>
+    </div> -->
+    <div class="d-flex justify-centent-center align-items-center" style="width:inherit;height: inherit;">
+
+        <div class="video-modal" >
+           
+            <ngb-carousel data-interval="false" #carousal="ngbCarousel" *ngIf="Data" class="" style="height:100%;width: 100%;">
+                <ng-container *ngFor="let data of Data;let i=index">
+
+                <ng-template ngbSlide [id]="i|json" >
+                    <div class="video-container d-flex justify-centent-center" *ngIf="data.video_name!=null;else noVideo">
+                        <video  height="70%" width="70%" preload="none" style="width:90% !important;height: 75% !important;" class="custom-video" controls>
+                            <source [src]="IP+'/getviolationvideo/'+ data.video_name" type="video/mp4">
+
+                        </video>
+                    </div>
+                    <ng-template #noVideo>
+                        <div class="video-container alert alert-warning">No Recordings</div>
+                    </ng-template>
+                    <div class="carousel-caption">
+                        <div><span>SI Number: {{data.SNo}} </span></div>
+                        <div><span class="text">Camera Name :</span><b>{{data.cameraname}}</b></div>
+                        <div><span class="text">Camera IP :</span><b>{{data.camera_ip}}</b></div>
+
+                        <div><span class="text">Coin ID :</span><b>{{data.coinid}}</b></div>
+                    </div>
+                </ng-template>
+
+</ng-container>
+
+            </ngb-carousel>
+
+        </div>
+        </div>
+
+        

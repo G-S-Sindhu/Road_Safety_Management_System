@@ -1,0 +1,424 @@
+.date-picker{
+  position: relative;
+  border: 2px solid var(--gray-light);
+  background-color:white !important;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  height: 2.5rem;
+  width:auto !important;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 8px rgba(94,104,121,0.3) !important;
+}
+
+.date-picker input{
+  border: none !important;
+}
+
+.form-control{
+  width:100% !important;
+}
+
+input{
+  width:100%;
+}
+
+
+.datePickerContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+  
+.datePickerContainer input{
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.date-picker fa-icon{
+  margin-right: 0.6rem !important;
+}
+
+.date-picker input:active{
+  box-shadow: none !important;
+  border: none; 
+}
+
+.datePickerContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+ 
+.statusGrid{
+    width: 100%;
+    position:relative;
+    display: grid;
+    grid-template-columns: 3fr 1fr; 
+}
+
+.statusGrid h1:hover{
+    border-bottom: 2px solid var(primary-color);
+    cursor: pointer;
+}
+
+#cameraStatus .card{
+    max-height: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+#violationCount .card{
+    max-height: 150px;
+    min-height: 150px;
+}
+
+#cameraStatus .card.card-body{
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+#violationCount .card.card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconImage{
+    width: 4em;
+    height: 4em;
+    object-fit: cover;
+}
+
+#ecCamera .modal-content{
+    left:30em !important;
+}
+
+::ng-deep #ecCamera .modal-content{
+    left:500px !important
+}
+
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    background-color:  #f8f8f8 !important;
+    border-radius: 5px !important;
+    color: var(--label-color) !important;
+    box-shadow: none;
+}
+  
+ngb-pagination ::ng-deep ul > li.active > a {
+    background-color: var(--label-color) !important;
+    border-radius: 5px !important;
+    border: 1px solid var(--label-color) !important;
+    box-shadow: none; 
+ }
+
+  #dateRange{
+    width: 290px;
+  }
+
+  #dateRange input{
+    width:inherit
+  }
+  .search-form{
+    width: 15rem;
+    height: inherit;
+    display: flex;
+    background: #ffff;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+
+.search-form input{
+    padding:0 1.2rem;
+    height: 100%;
+    width: 100%;
+  }
+    
+    /* styles for search icon */
+    .search-form label{
+        padding-right: 1rem;
+        cursor: pointer;
+    }
+
+    .input-icons fa-icon { 
+      position: absolute;
+      padding:9px
+  } 
+  
+  .input-icons { 
+      width: 100%; 
+  } 
+  
+  .icon { 
+      padding: 30px;
+  } 
+
+  .input-field { 
+    padding: 10px;
+}
+
+
+table.table>tbody>tr td {
+  position: relative;
+    text-align: center;
+    justify-content:space-between;
+    justify-content: center !important;
+  }
+
+  table.table >tr > thead > th{
+    text-align: center;
+  }
+
+ p{
+  color:#6269b2
+  #B9B9B9
+  #0746f4
+  #0879f2
+  #0746f4
+  #1b74d9
+  #0746f4
+  #2962ff
+  #00acdf
+  #128ec1
+ } 
+
+
+ 
+
+/* .vertical {
+  border-left: 5px solid black;
+  height: 200px;
+} */
+
+
+
+
+
+
+.vertical {
+  position: relative;
+  height: 200px;
+}
+
+.vertical::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 65%; /* Adjusted to move the line to the right side */
+  width: 3px;
+  height: 100%;
+  background-color: rgb(179, 174, 174);
+}
+
+.left-content {
+  position: absolute;
+  top: 50%; /* Adjust this value to vertically center the content */
+  left: 0.5%; /* Adjustable measurement for left positioning */
+  transform: translateY(-50%);
+}
+
+.right-content {
+  position: absolute;
+  top: 50%; /* Adjust this value to vertically center the content */
+  right: 0%; /* Adjust this value to move the content horizontally */
+  transform: translateY(-50%);
+}
+
+
+#parking .card{
+  /* max-height: 100%;
+  min-height: 100%;
+  max-width: 120%;
+  min-width: 120%; */
+
+
+  max-height: 130px;
+  min-height: 130px;
+  max-width: 120px;
+  min-width: 120px;
+}
+
+
+ 
+#parking .card.card-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+#no-parking .card{
+  max-height: 130px;
+  min-height: 130px;
+  max-width: 120px;
+  min-width: 120px;
+}
+
+ 
+#no-parking .card.card-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color:rgb(189, 86, 42); */
+}
+
+#camwise.card{
+  max-height: 70px;
+  min-height: 70px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+
+
+ 
+#camwise.card.card-body{
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  /* color:rgb(189, 86, 42); */
+}
+
+
+/* #occupanyDetails.card{
+  max-height: 430px;
+  min-height: 430px;
+  max-width: 350px;
+  min-width: 350px;
+} */
+
+#occupanyDetails.card.card-body{
+/* display: flex; */
+/* justify-content: center;
+align-items: center; */
+/* color:rgb(189, 86, 42); */
+}
+
+/* .progress-bar {
+  width: 200px;
+  height: 25px;
+  background-color: #ddd;
+}
+
+.progress-bar-fill {
+  background-color: #007bff;
+  height: 100%;
+} */
+
+.progress {
+  height: 15px; /* Adjust height as needed */
+  background-color: #eee;
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: #e9d700;
+}
+
+
+
+.vertical1 {
+  position: relative;
+  height: 475px;
+}
+
+.vertical1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 80%; /* Adjusted to move the line to the right side */
+  width: 3px;
+  height: 100%;
+  background-color: rgb(179, 174, 174);
+}
+
+.left-content1 {
+  position: absolute;
+  top: 50%; /* Adjust this value to vertically center the content */
+  left: 0%; /* Adjustable measurement for left positioning */
+  transform: translateY(-50%);
+}
+
+.right-content1 {
+  position: absolute;
+  top: 50%;
+   /* Adjust this value to vertically center the content */
+  right: 0%; 
+ 
+  /* Adjust this value to move the content horizontally */
+  transform: translateY(-50%);
+  
+}
+
+
+#parkingCamwise .card{
+  /* max-height: 100%;
+  min-height: 100%;
+  max-width: 120%;
+  min-width: 120%; */
+
+
+  max-height: 100%;
+  min-height: 100%;
+  max-width: 625px;
+  min-width: 625px;
+}
+
+
+ 
+#parkingCamwise .card.card-body{
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+ 
+}
+
+
+#no-parkingCamwise .card{
+  max-height: 130px;
+  min-height: 130px;
+  max-width: 120px;
+  min-width: 120px;
+}
+
+ 
+#no-parkingCamwise .card.card-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color:rgb(189, 86, 42); */
+  
+}
+
+
+#parking1 .card{
+  /* max-height: 100%;
+  min-height: 100%;
+  max-width: 120%;
+  min-width: 120%; */
+
+
+  max-height: 100%;
+  min-height: 100%;
+  max-width: 120px;
+  min-width: 120px;
+}
+
+/* color:#BA2E2E */
+
+
+.container {
+width:100%;
+display: flex;
+justify-content: space-between;
+/* color:rgb(223, 205, 69);
+color:rgb(225, 85, 78) */
+
+/* color:rgba(244, 76, 67, 0.994), */
+/* color:rgba(246, 125, 119, 0.994) */
+}

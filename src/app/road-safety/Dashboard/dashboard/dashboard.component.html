@@ -1,0 +1,68 @@
+<div  >
+    <div class="">
+      <h3 class="page-header">Dashboard</h3>
+    </div>
+  
+    <!-- <div class="row">
+      <div class="col-12">
+        <div class="card-header">
+          <button
+            class="btn default-outline me-2 float-start"
+            (click)="alertToggle()"
+            style="width: 7%"
+            placement="bottom"
+            [ngbTooltip]="alert ? 'notification on' : 'notification off'"
+          >
+            <fa-icon icon="bell" *ngIf="alert" class="me-1"></fa-icon>
+            <fa-icon
+              icon="bell-slash"
+              *ngIf="!alert"
+              class="me-1" 
+            ></fa-icon></button
+          >&nbsp;
+          <button
+            class="btn default-outline float-start me-2"
+            (click)="volumeToggle()"
+            style="width: 7%"
+            placement="bottom"
+            [ngbTooltip]="audioOff ? 'mute' : 'unmute'"
+          >
+            <fa-icon icon="volume-up" *ngIf="!audioOff" class="me-1"></fa-icon>
+            <fa-icon
+              icon="volume-off"
+              *ngIf="audioOff"
+              class="me-1"
+            ></fa-icon></button
+          >&nbsp;
+  
+          
+        </div>
+      </div>
+    </div> -->
+    <div >
+      <p-tabView (onChange)="OnTabChange($event)" [(activeIndex)]="activeIndex">
+        <p-tabPanel header="Parking">
+          <router-outlet *ngIf="activeIndex === 0"></router-outlet>
+        </p-tabPanel>
+        <p-tabPanel header="Traffic-Jam">
+          <router-outlet *ngIf="activeIndex === 1"></router-outlet>
+        </p-tabPanel>
+        <!-- <p-tabPanel header="Crowd Count">
+          <router-outlet *ngIf="activeIndex == 2"></router-outlet>
+        </p-tabPanel>
+        <p-tabPanel header="Spillage Detection">
+          <router-outlet *ngIf="activeIndex == 3"></router-outlet>
+        </p-tabPanel>
+        <p-tabPanel header="Fire and Dust Detection">
+          <router-outlet *ngIf="activeIndex == 4"></router-outlet>
+        </p-tabPanel> -->
+  
+        
+      </p-tabView>
+    </div>
+  
+    
+  </div>
+  
+  <!-----------------------------------MODAL TEMPLATE FOR EXCEL DOWNLOAD------------------------------------------------------------>
+  

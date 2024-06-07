@@ -1,0 +1,497 @@
+<div class="container-fluid dashboard-content">
+
+    <div class="col-xl-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4">
+
+        <!-- <div class="page-header">
+            <h3>Dashboard</h3>
+        </div> -->
+        <div class="float-end justify-content-center" *ngIf="camerasLicenseDetails">
+            <span class="me-4">
+                <span class="font-primary me-1" style="font-size:21px;">Total Camera Licenses :</span>
+                <!-- <b style="font-size:20px;">{{ camerasLicenseDetails.total_license}}</b> -->
+            </span>
+            <span class="me-4">
+              <span class="font-primary me-1" style="font-size:21px;">Utilized Camera Licenses :</span>
+              <!-- <b style="font-size:20px;">{{ camerasLicenseDetails.added_cameras_count}}</b> -->
+            </span>
+            <span class="me-4">
+              <span class="font-primary me-1" style="font-size:21px;">Remaining Camera Licenses :</span>
+              <!-- <b style="font-size:20px;">{{ camerasLicenseDetails.remaining_license}}</b> -->
+            </span>
+        </div>
+
+    </div>
+
+
+
+<div class="row mb-8" >
+    
+    <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+        <div class="card card-body" id="cameraStatus">
+            
+            <div class= "vertical" >
+
+            <div class="left-content" id="parking">
+                <h4 class="sub-header ms-2">
+                    Parking Slots
+                 </h4><br>
+                
+            <div class="row mb-6" >
+                
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+
+                    
+                    <div class="card card-body" >
+                        <h5>Total Slots</h5>
+                        <p style="font-size: large;"><b>100</b></p>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+
+                    <!-- <div class="card card-body">
+                        hiii
+                    </div> -->
+                    <div class="card card-body">
+                         <h5>Available</h5>
+                         <p style="color:green;font-size: large;"><b>100</b></p>
+                    </div>
+                </div>
+                
+            </div>
+
+             </div>
+
+
+
+             <div  class="right-content" >
+
+                <!-- <div > -->
+                    <!-- <canvasjs-chart [options]="chartOptions1" [styles]="{width: '50%', height:'200px'}"></canvasjs-chart>     -->
+                <!-- </div>  -->
+
+                <app-bar-chart [chartOptions]="chartOptions4"></app-bar-chart>
+             </div>
+            
+
+        </div>
+    </div>
+    </div>
+    
+    
+    
+
+
+
+    <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+       
+
+        <div class="card card-body" id="cameraStatus">
+           
+            <div class= "vertical" >
+
+            <div class="left-content" id="no-parking">
+
+                <h4 class="sub-header ms-2">
+                    No-Parking Slots
+                 </h4><br>
+            <div class="row mb-2" >
+                
+                
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+
+                   
+                    
+                    <div class="card card-body" >
+                        <h5>Total Slots</h5>
+                        <p style="font-size: large;"><b>100</b></p>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+
+                    <!-- <div class="card card-body">
+                        hiii
+                    </div> -->
+                    <div class="card card-body">
+                        <h5>Violations</h5>
+                        <p style="color:rgb(189, 83, 83);font-size:large;"><b>100</b></p>
+                    </div>
+                </div>
+                
+            </div>
+
+             </div>
+
+
+            <div class="right-content" >
+             <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width: '50%', height:'200px'}"></canvasjs-chart>   -->
+
+             <!-- <google-chart [data]="guageChartData"></google-chart>   -->
+             <!-- <table>  
+                <tr>   -->
+                    <!-- <td style="width:'50%'; height:'200px'">   -->
+
+                        <!-- <google-chart [data]="risk"  style="width:'50%'; height:'200px'"></google-chart> -->
+
+                    <!-- </td>   -->
+                    <!-- <td>  
+                        <google-chart [data]="risk2"></google-chart>  
+                    </td>   -->
+                <!-- </tr>  
+            </table>  -->
+            <app-bar-chart [chartOptions]="chartOptions5"></app-bar-chart>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    
+</div><br>
+
+<div class="row mb-8" >
+    
+    <div class="col-xl-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-8">
+        <div class="card card-body"   >
+
+    
+
+    
+    <div class= "vertical1" >
+
+        <div class="left-content1">
+
+            <div class="row mb-8 " >
+    
+                <div class="col-xl-8 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+                    <h4  class="sub-header ms-2">
+                        Occupancy Details
+                     </h4><br>
+                </div>
+            </div>
+    
+    <div class="card card-body" style="height: 425px; overflow-y: auto;">
+
+    <div class="card card-body" id="camwise"  >
+
+<div class="row">
+        <div class="col-xl-7 col-xs-1 col-sm-1 col-md-1 col-lg-1  ">
+            <p><b>Camera Name</b>
+                
+            </p>
+        </div>
+
+        <div class="col-xl-4 col-xs-1 col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center">
+            <p><b>Available</b>
+               
+            </p>
+        </div>
+
+    </div>
+
+    <!-- <div class="progress-bar">
+        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  style="width:25%"></div>
+      </div> -->
+      <div class="row ">
+
+        <div class="col-xl-7 col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+          70%
+        </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-xs-1 col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center">
+        <p style="color:green;font-size: large;top:10%" ><b>80</b>
+           
+        </p>
+    </div>
+
+
+      </div>
+
+    
+
+
+    
+
+
+
+</div>
+   
+
+</div>
+
+
+</div>
+
+
+<div class="right-content1" >
+
+    <div class="row" >
+        
+      <div class="col-12 mb-2">
+       
+        <div class="container">
+
+        <div class="float-start d-flex" >
+            <h5 >Camera Name: </h5>&nbsp;<p style="font-size: medium;"> s</p>
+        </div>
+
+        <div class="float-start d-flex">
+            <h5> IP Address: </h5>&nbsp;<p style="font-size: medium;"> df</p>  
+        </div>
+        <div class="float-start d-flex">
+            <h5> Department: </h5>&nbsp;<p style="font-size: medium;"> df</p>  
+        </div>
+    
+    <div class="float-end">
+        <!-- <div class="float-end"> -->
+            <a class="btn default-outline  " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon>2D/3D View</a>&nbsp;
+               
+        <!-- </div>
+        <div class="float-end"> -->
+            <a class="btn default-outline  " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon> History</a>&nbsp;
+               
+        <!-- </div>
+        <div class="float-end"> -->
+            <a class="btn default-outline " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon> Violations</a>
+               
+        <!-- </div> -->
+    </div>
+ 
+    </div>
+</div>
+</div>
+
+
+    <div class="row mb-8" >
+        <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 " id="parkingCamwise">
+            <div class="card card-body" id="cameraStatus" >
+
+                <!-- <div class= "row" > -->
+
+                    <div class="row" >
+                        <div class="col-xl-12 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-4 " >
+                        <h4 class="sub-header ms-2" >
+                            Parking 
+                         </h4></div>
+                    </div> 
+                    <div class="row mb-8" id="parking1" >
+                        
+                        <div class="col-xl-4 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+        
+                            
+                            <div class="card card-body" >
+                                <h5>Total Slots</h5>
+                                <p style="font-size: large;"><b>100</b></p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-4 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+        
+                            <!-- <div class="card card-body">
+                                hiii
+                            </div> -->
+                            <div class="card card-body">
+                                 <h5>Available</h5>
+                                 <p style="color:green;font-size: large;"><b>100</b></p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+        
+                            <!-- <div class="card card-body">
+                                hiii
+                            </div> -->
+                            <div class="card card-body">
+                                 <h5>Violations</h5>
+                                 <p style="color:rgb(189, 83, 83);font-size: large;"><b>100</b></p>
+                            </div>
+                        </div>
+                        
+                    </div>&nbsp;
+        
+                     
+        
+        
+        
+                    
+                    
+        
+                <!-- </div> -->
+                <div class="row"  >
+        
+                    <!-- <div > -->
+                        <!-- <canvasjs-chart [options]="chartOptions1" [styles]="{width: '100%', height:'230px'}"></canvasjs-chart>     -->
+                    <!-- </div>  -->
+
+                    <app-bar-chart [chartOptions]="chartOptions4"></app-bar-chart>
+                 </div>
+
+                
+                <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width:'50%', height:'200px'}"></canvasjs-chart> -->
+
+
+
+
+            </div>
+        </div>
+    
+        <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-6 " id="parkingCamwise">
+            
+
+
+
+
+                <div class="card card-body" id="cameraStatus" >
+
+                    <!-- <div class= "row" > -->
+    
+                        <div class="row" >
+                            <div class="col-xl-12 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-4 " >
+                            <h4 class="sub-header ms-2" >
+                                No-Parking 
+                             </h4></div>
+                        </div> 
+                        <div class="row mb-8" id="parking1" >
+                            
+                            <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+            
+                                
+                                <div class="card card-body" >
+                                    <h5 style="text-align: center;">Total Slots</h5>
+                                    <p style="font-size: large;"><b>100</b></p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+            
+                                <!-- <div class="card card-body">
+                                    hiii
+                                </div> -->
+                                <div class="card card-body">
+                                     <h5 style="text-align: center;"> Total Violations</h5>
+                                     <p style="color:rgb(189, 83, 83);font-size: large;"><b>100</b></p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+            
+                                <!-- <div class="card card-body">
+                                    hiii
+                                </div> -->
+                                <div class="card card-body">
+                                     <b><fa-icon icon="car"></fa-icon></b><h5>Violations</h5>
+                                     <p style="color:#E56565;font-size: large;"><b>50</b></p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-8 mb-6">
+            
+                                <!-- <div class="card card-body">
+                                    hiii
+                                </div> -->
+                                <div class="card card-body">
+                                    <b><fa-icon icon="motorcycle"></fa-icon></b> <h5>Violations</h5>
+                                     <p style="color:#E04C4C;font-size: large;"><b>50</b></p>
+                                </div>
+                            </div>
+                            
+                        </div>&nbsp;
+            
+                         
+            
+            
+            
+                        
+                        
+            
+                    <!-- </div> -->
+                    <div class="row" >
+            
+                        <!-- <div > -->
+                            <!-- <canvasjs-chart [options]="chartOptions1" [styles]="{width: '100%', height:'230px'}"></canvasjs-chart>     -->
+                            <!-- <canvasjs-chart [options]="chartOptions3" [styles]="{width:'100%', height:'200px'}"></canvasjs-chart> -->
+                        <!-- </div>  -->
+
+                        <app-bar-chart [chartOptions]="chartOptions5"></app-bar-chart>
+                     </div>
+    
+                    
+                    <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width:'50%', height:'200px'}"></canvasjs-chart> -->
+    
+    
+    
+    
+                
+                <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width: '50%', height:'200px'}"></canvasjs-chart> -->
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+</div>
+</div>
+</div><br>
+
+<div class="row mb-8" id="demo">
+
+    <div class="col-xl-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-8">
+        <div class="card card-body" >
+            <div class="row mb-8" >
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-8">
+                    <div class="card card-body" >
+                        <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width:'100%', height:'200px'}"></canvasjs-chart> -->
+                        <div class="" class="d-flex justify-content-center">
+                            <div id="canvas-container">
+                                  <canvas id="canvasROI" class="canvas-class"></canvas>
+                            </div>
+
+
+                            <!-- <app-bar-chart [chartOptions]="chartOptions4"></app-bar-chart> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-8">
+                    <div class="card card-body" >
+                        <!-- <canvasjs-chart [options]="chartOptions2" [styles]="{width:'100%', height:'200px'}"></canvasjs-chart> -->
+                        <div class="" class="d-flex justify-content-center">
+                            <div id="canvas-container">
+                                  <canvas id="canvasROI" class="canvas-class"></canvas>
+                            </div>
+
+                            <!-- <app-bar-chart [chartOptions]="chartOptions4"></app-bar-chart> -->
+                          </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>       
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
