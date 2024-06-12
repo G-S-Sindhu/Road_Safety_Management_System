@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { CommonModules } from 'src/app/common/common.module';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { DashboardParkingComponent } from './dashboard-parking.component';
@@ -16,9 +16,6 @@ import { ChartsModule } from 'src/app/common/charts/charts.module';
 }]
 
 
-
-
- 
 @NgModule({
 
   declarations: [
@@ -43,4 +40,5 @@ import { ChartsModule } from 'src/app/common/charts/charts.module';
     DatePipe
   ]
 })
+
 export class DashboardParkingModule { }

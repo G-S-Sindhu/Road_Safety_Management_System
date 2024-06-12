@@ -72,15 +72,15 @@
 	<div class="row border rounded m-2">
 		<div class="col-12">
 			<div class="card" id="data-card">
-				<div class="row ms-3">
-					<div class="d-flex justify-content-start align-items-center p-2 ms-3">
+				<div class="row">
+					<div class="d-flex justify-content-start align-items-center p-2 ">
 						<div class="me-3">
 							<div class="container p-3">
 								<fa-icon icon="filter"></fa-icon>
 							</div>
 						</div>
 
-						<div class="col-xl-10 col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-xl-11 col-lg-12 col-md-12 col-xs-12 col-sm-12">
 							<div class="row d-flex align-items-center justify-content-start">
 								<span class="col-xl-2 col-lg-2 col-md-4 col-xs-12 col-sm-12">
 									<div
@@ -150,12 +150,43 @@
 										placeholder="Select Camera"
 									></p-treeSelect>
 								</div>
+								<div
+									class="col-xl-2 col-lg-2 col-md-4 col-xs-12 col-sm-12"
+									id="filter"
+									>
+									<p-treeSelect
+										[containerStyleClass]="'w-100'"
+										class="w-100 d-flex"
+										[(ngModel)]="selectedParkingType"
+										[ngModelOptions]="{ standalone: true }"
+										[options]="parkingTypeList | async"
+										[style]="{ width: 'inherit' }"
+										(onNodeSelect)="OnParkingTypeSelect()"
+										placeholder="Select Parking Type"
+									></p-treeSelect>
+								</div>
+								<div
+									class="col-xl-2 col-lg-2 col-md-4 col-xs-12 col-sm-12"
+									id="filter"
+									>
+									<p-treeSelect
+										[containerStyleClass]="'w-100'"
+										class="w-100 d-flex"
+										[(ngModel)]="selectedViolationType"
+										[ngModelOptions]="{ standalone: true }"
+										[options]="violationTypeList | async"
+										[style]="{ width: 'inherit' }"
+										(onNodeSelect)="OnViolationSelect()"
+										placeholder="Select Violation Option"
+									></p-treeSelect>
+								</div>
 
 								<div
-									class="col-xl-6 col-sm-12 col-lg-12 col-xs-12 col-md-12 d-flex align-items-center"
+								class="col-xl-1 col-lg-2 col-md-4 col-xs-12 col-sm-12"
+								
 									>
 									<button
-										class="btn default-outline ms-3 me-3"
+										class="btn default-outline"
 										(click)="ResetFilters()"
 										*ngIf="
 										selectedCameraId !== null ||
@@ -165,12 +196,15 @@
 									>
 										&times;Cancel Filters
 									</button>
-
+								</div>
+								<div
+								class="col-xl-1 col-lg-2 col-md-4 col-xs-12 col-sm-12 float-end"
+								>
 									<button
-										class="btn default text-white me-3 ms-1"
-										style="width: 80px"
+										class="btn default"
+										
 										(click)="Submit()"
-										style="width: 80px"
+										
 										[disabled]="
 										selectedMoments === null ||
 										selectedMoments.startDate === null ||
@@ -186,7 +220,7 @@
 										></span>
 									</button
 									>&nbsp;
-
+								</div>
 									<!-- <button
 										type="submit"
 										class="btn default text-white me-3"
@@ -213,29 +247,32 @@
 										Excel</button
 									>&nbsp; -->
 
-									<div class="">
+									<!-- <div
+									class="col-xl-1 col-lg-2 col-md-4 col-xs-12 col-sm-12"
+									
+									>
 										
 										<button
 										class="btn default text-white"
 										*ngIf="isdatewise || isLatest"
 										(click)="BackToToday()"
-										style="width: 100px"
-										>
-											<fa-icon
+										
+										> -->
+											<!-- <fa-icon
 												icon="chart-area"
 												*ngIf="!loader2"
 												class="text-white me-2"
-											></fa-icon>
-											<span *ngIf="!loader2"> Live </span>
-											<span
+											></fa-icon> -->
+											<!-- <span *ngIf="!loader2">Live</span> -->
+											<!-- <span
 												class="spinner-border spinner-border-sm"
 												role="status"
 												aria-hidden="true"
 												*ngIf="loader2"
-											></span>
-										</button>
-									</div>
-								</div>
+											></span> -->
+										<!-- </button>
+									
+								</div> -->
 							</div>
 						</div>
 						<!-- <span class="justify-content-end me-3">
@@ -348,11 +385,20 @@
 								>
 									<div *ngIf="data?.analytics_log[0].details">
 										<p-carousel [value]="data.analytics_log[0].details" [id]="data.analytics_log[0].details">
-											<ng-template let-d pTemplate="d">
-												<div class="data-wrapper p-2">
-													<div class="column-flex" style="padding-left: 0.5rem">
+											<ng-template let-d pTemplate="d" let-index="index" >
+												<div [ngClass]="data.analytics_log[0].status !== 'free'&&
+												data.analytics_log[0].status !== 'Unauthorized Parking'?'data-wrapper alert alert-success p-2':'data-wrapper p-1'">
+													<div class="d-flex flex-column justify-content-center align-items-center" >
 														<!-- {{ data.analytics_log[0].details.SNo }}.{{ d.id }} -->
-														{{i+1}}
+														<div class="icon-top-left justify-content-center align-items-center" >
+															<fa-icon icon="exclamation-triangle"  *ngIf="d.violation === 1"></fa-icon>
+														</div>
+														
+														<div class="d-felx justify-content-center align-items-center">
+															{{i+1}}.{{index}}
+														</div>
+														
+														
 													</div>
 
 													<div
@@ -640,7 +686,7 @@
 						</div>
 
 						<ng-template #noData>
-							<div class="row card card-body" id="data-card">
+							<div *ngIf="!isLatestvpmsData" class="row card card-body" id="data-card">
 								<div
 									class="text-muted d-flex justify-content-center align-items-center"
 									*ngIf="dataFetchStatus === 'success'"
@@ -673,6 +719,307 @@
 									Error While Fetching the Data.
 								</div>
 							</div>
+							<ng-container *ngIf="isLatestvpmsData">
+								<div
+								*ngFor="
+									let data of latestvpmsData;
+									let i = index;
+									trackBy: trackByFn
+								"
+								style="text-align: center"
+								>
+									<div *ngIf="data?.analytics_log.details">
+										<p-carousel [value]="data.analytics_log.details" [id]="data.analytics_log.details">
+											<ng-template let-d pTemplate="d" let-index="index">
+												<div class="data-wrapper p-2">
+													<div class="column-flex" style="padding-left: 0.5rem">
+														<!-- {{ data.analytics_log[0].details.SNo }}.{{ d.id }} -->
+														{{i+1}}.{{index}}
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														<!-- <div class="column-flex">
+														<img
+															[src]="
+															API +
+															'/image/' +
+															analyticsType +
+															'/' +
+															d.imagename[0]
+															"
+															class="image"
+															loading="lazy"
+															(click)="imageCarousal(d)"
+														/>
+														<br />
+
+														<div class="column-flex">
+															<button
+															*ngIf="d.imagename.length < 1"
+															class="btn btn-sm mt-2"
+															(click)="imageCarousal(d)"
+															>
+															&nbsp;&nbsp;
+															<fa-icon icon="images" class="mr-1"></fa-icon>
+															More Images
+															</button>
+
+															<button
+															class="btn btn-sm default text-white mt-2"
+															(click)="
+																downloadImage(
+																API +
+																	'/image/' +
+																	analyticsType +
+																	'/' +
+																	d.imagename
+																)
+															"
+															>
+															Download Image
+															<fa-icon
+																icon="download"
+																class="ms-1 me-1"
+																style="cursor: pointer"
+															></fa-icon>
+															</button>
+														</div>
+														</div> -->
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														<div class="violation_data_container">
+														{{d.message}}
+														<!-- <ng-scrollbar
+															style="height: 8rem !important"
+															#scrollable
+															track="vertical"
+															pointerEventsMethod="scrollbar"
+															[autoHeightDisabled]="true"
+															[disabled]="false"
+														>
+															<div >
+															<div class="border-bottom"
+																*ngFor="
+																let roi of d?.analytics_data?.ROI_details
+																"
+															>
+																<div>
+																<div *ngIf="roi?.roi_name">
+																	<span class="text-muted">ROI Name</span
+																	><span *ngIf="roi?.roi_name" class="ms-2"><b>{{
+																	roi.roi_name
+																	}}</b> </span>
+																</div>
+																<span *ngIf="roi?.person"
+																	><span>Person</span
+																	><span *ngIf="roi?.person">{{
+																	roi.person
+																	}}</span>
+																</span>
+																<span *ngIf="roi?.car"
+																	><span>Car</span
+																	><span *ngIf="roi?.car">{{
+																	roi.car
+																	}}</span>
+																</span>
+																<span
+																	*ngFor="
+																	let objectkey of objectKeys(
+																		roi.obj_details
+																	)
+																	"
+																>
+																	<span class="text-muted">{{ objectkey }} count </span
+																	><span class="ms-2"
+																	><b>{{
+																		roi.obj_details[objectkey]
+																	}}</b></span
+																	>
+																</span>
+																<br />
+																</div>
+															</div>
+															</div>
+														</ng-scrollbar> -->
+														</div>
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														{{ data.department ? data.department : "null" }}
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														{{ data.camera_name ? data.camera_name : "null" }}
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														Entry Time:<br>
+															{{ data.analytics_log.entry_time | dateFormater }}<br>
+														Exit Time:<br>
+															{{ data.analytics_log.exit_time | dateFormater }}
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														<!-- <div class="column-flex">
+														<div
+															*ngIf="isEditTable"
+															id="verify"
+															style="width: 5rem"
+															class="d-flex justify-content-center align-items-center"
+														>
+															<div
+															*ngIf="
+																!d.violation_verificaton_status;
+																else verified
+															"
+															>
+															<div class="" id="right">
+																<input
+																type="radio"
+																[value]="0"
+																(change)="
+																	VerifyTrueViol($event, d, data.SNo)
+																"
+																[defaultValue]="true"
+																[id]="
+																	'yes' + String(data.SNo) + String(d.id)
+																"
+																class=""
+																/>
+																<label
+																[for]="
+																	'yes' + String(data.SNo) + String(d.id)
+																"
+																class="form-check-label text-success"
+																>Yes
+																</label>
+															</div>
+
+															<div class="" id="wrong">
+																<input
+																type="radio"
+																[value]="1"
+																(change)="
+																	VerifyFalseViol($event, d, data.SNo)
+																"
+																[defaultValue]="false"
+																[id]="
+																	'no' + String(data.SNo) + String(d.id)
+																"
+																class=""
+																/>
+																<label
+																[for]="
+																	'no' + String(data.SNo) + String(d.id)
+																"
+																class="form-check-label text-danger"
+																>No
+																</label>
+															</div>
+															</div>
+
+															<ng-template #verified>
+															
+															<div *ngIf="d.violation_verificaton_status">
+																<div class="" id="right">
+																<input
+																	type="radio"
+																	[value]="0"
+																	(change)="
+																	VerifyTrueViol($event, d, data.SNo)
+																	"
+																	[defaultValue]="true"
+																	[id]="
+																	'yes' +
+																	String(data.SNo) +
+																	String(d.id)
+																	"
+																	class=""
+																	[defaultChecked]="
+																	d.violation_status === true
+																	"
+																/>
+																<label
+																	[for]="
+																	'yes' +
+																	String(data.SNo) +
+																	String(d.id)
+																	"
+																	class="form-check-label text-success"
+																	>Yes
+																</label>
+																</div>
+
+																<div class="" id="wrong">
+																<input
+																	type="radio"
+																	[value]="1"
+																	(change)="
+																	VerifyFalseViol($event, d, data.SNo)
+																	"
+																	[defaultValue]="false"
+																	[id]="
+																	'no' + String(data.SNo) + String(d.id)
+																	"
+																	class=""
+																	[defaultChecked]="
+																	d.violation_status === false
+																	"
+																/>
+																<label
+																	[for]="
+																	'no' + String(data.SNo) + String(d.id)
+																	"
+																	class="form-check-label text-danger"
+																	>No
+																</label>
+																</div>
+															</div>
+															</ng-template>
+														</div>
+														</div> -->
+														{{data.analytics_log.type}}
+														
+													</div>
+
+													<div
+														class="d-flex justify-content-center align-items-center"
+													>
+														<!-- <div>
+														<div
+															class="btn"
+															(click)="IsDeleteData(deleteModal, d)"
+														>
+															<fa-icon
+															icon="trash"
+															class="text-danger"
+															></fa-icon>
+														</div>
+														</div> -->
+														{{data.analytics_log.status}}
+
+														
+													</div>
+												</div>
+											</ng-template>
+										</p-carousel>
+									</div>
+								</div>
+							</ng-container>
+
 						</ng-template>
 
 						<!-- <div class="d-flex mx-auto justify-content-center p-1">

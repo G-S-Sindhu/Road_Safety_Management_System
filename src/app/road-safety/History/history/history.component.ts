@@ -118,7 +118,7 @@ export class HistoryComponent implements OnDestroy, OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.violationContainer=this.Violation.nativeElement.innerHTML
 
-    this.dataread();
+    // this.dataread();
 
   }
 

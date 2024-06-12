@@ -43,7 +43,7 @@
                     
                     <div class="card card-body" >
                         <h5>Total Slots</h5>
-                        <p style="font-size: large;"><b>100</b></p>
+                        <p style="font-size: large;"><b>{{parkingSlotsStatus?parkingSlotsStatus?.total_slots_count:0}}</b></p>
                     </div>
                 </div>
                 
@@ -54,7 +54,7 @@
                     </div> -->
                     <div class="card card-body">
                          <h5>Available</h5>
-                         <p style="color:green;font-size: large;"><b>100</b></p>
+                         <p style="color:green;font-size: large;"><b>{{parkingSlotsStatus?parkingSlotsStatus?.Available_slot_count:0}}</b></p>
                     </div>
                 </div>
                 
@@ -104,7 +104,7 @@
                     
                     <div class="card card-body" >
                         <h5>Total Slots</h5>
-                        <p style="font-size: large;"><b>100</b></p>
+                        <p style="font-size: large;"><b>{{no_parkingSlotsStatus?no_parkingSlotsStatus?.total_slots_count:0}}</b></p>
                     </div>
                 </div>
                 
@@ -115,7 +115,7 @@
                     </div> -->
                     <div class="card card-body">
                         <h5>Violations</h5>
-                        <p style="color:rgb(189, 83, 83);font-size:large;"><b>100</b></p>
+                        <p style="color:rgb(189, 83, 83);font-size:large;"><b>{{no_parkingSlotsStatus?no_parkingSlotsStatus?.violation_count:0}}</b></p>
                     </div>
                 </div>
                 
@@ -204,7 +204,9 @@
     </div>
 
     <div class="col-xl-4 col-xs-1 col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center">
-        <p style="color:green;font-size: large;top:10%" ><b>80</b>
+        <p style="color:green;font-size: large;top:10%" ><b>
+            {{parkingSlotsDetails?parkingSlotsDetails?.Available_slot_count:0}}
+        </b>
            
         </p>
     </div>
@@ -237,7 +239,7 @@
         <div class="container">
 
         <div class="float-start d-flex" >
-            <h5 >Camera Name: </h5>&nbsp;<p style="font-size: medium;"> s</p>
+            <h5 >Camera Name: </h5>&nbsp;<p style="font-size: medium;">{{parkingSlotsDetails?parkingSlotsDetails?.camera_name:null}}</p>
         </div>
 
         <div class="float-start d-flex">
@@ -248,18 +250,16 @@
         </div>
     
     <div class="float-end">
-        <!-- <div class="float-end"> -->
-            <a class="btn default-outline  " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon>2D/3D View</a>&nbsp;
+        
+            <!-- <a class="btn default-outline  " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon>2D/3D View</a>&nbsp;
                
-        <!-- </div>
-        <div class="float-end"> -->
+        
             <a class="btn default-outline  " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon> History</a>&nbsp;
                
-        <!-- </div>
-        <div class="float-end"> -->
-            <a class="btn default-outline " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon> Violations</a>
+        
+            <a class="btn default-outline " (click)="scrollToParagraph()"> <fa-icon icon="eye"></fa-icon> Violations</a> -->
                
-        <!-- </div> -->
+        
     </div>
  
     </div>
@@ -297,7 +297,9 @@
                             </div> -->
                             <div class="card card-body">
                                  <h5>Available</h5>
-                                 <p style="color:green;font-size: large;"><b>100</b></p>
+                                 <p style="color:green;font-size: large;">
+                                    <b>{{parkingSlotsDetails?parkingSlotsDetails?.Available_slot_count:0}}</b>
+                                </p>
                             </div>
                         </div>
 
@@ -308,7 +310,9 @@
                             </div> -->
                             <div class="card card-body">
                                  <h5>Violations</h5>
-                                 <p style="color:rgb(189, 83, 83);font-size: large;"><b>100</b></p>
+                                 <p style="color:rgb(189, 83, 83);font-size: large;">
+                                    <b>{{parkingSlotsDetails?parkingSlotsDetails?.violation_count:0}}</b>
+                                </p>
                             </div>
                         </div>
                         
@@ -374,7 +378,9 @@
                                 </div> -->
                                 <div class="card card-body">
                                      <h5 style="text-align: center;"> Total Violations</h5>
-                                     <p style="color:rgb(189, 83, 83);font-size: large;"><b>100</b></p>
+                                     <p style="color:rgb(189, 83, 83);font-size: large;">
+                                        <b>{{no_parkingSlotsDetails?no_parkingSlotsDetails?.violation_count:0}}</b>
+                                    </p>
                                 </div>
                             </div>
 
@@ -385,7 +391,9 @@
                                 </div> -->
                                 <div class="card card-body">
                                      <b><fa-icon icon="car"></fa-icon></b><h5>Violations</h5>
-                                     <p style="color:#E56565;font-size: large;"><b>50</b></p>
+                                     <p style="color:#E56565;font-size: large;">
+                                        <b>50</b>
+                                    </p>
                                 </div>
                             </div>
 

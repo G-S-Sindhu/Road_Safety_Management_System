@@ -18,6 +18,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Moment } from "moment";
 import dayjs from "dayjs/esm";
 import { ParkingHistoryService } from "./parking-history.service";
+import { RadarController } from "chart.js";
 
 @Component({
   selector: 'app-parking-history',
@@ -26,6 +27,11 @@ import { ParkingHistoryService } from "./parking-history.service";
 })
 
 export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit {
+  parkingTypeList: Observable<any[]> = of([]);
+violationTypeList:Observable<any[]> = of([]);
+  selectedParkingType:any | null = null;
+  selectedViolationType:any |null  = null;
+  isLatestvpmsData :boolean = false;
     isdatewise: boolean = false;
     loaderLatest: boolean = false;
     ranges: any = {
@@ -56,11 +62,13 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
       dropdownList1: Observable<any[]> = of([]);
       selectedCameraId: any | null = null;
       dropdownList: Observable<any[]> = of([]);
+
       loading: boolean = false;
       isLatest: boolean = false;
       loader2: boolean = false;
     //   isEditTable: boolean = true;
       vpmsData:any[] = [];
+      latestvpmsData:any[] = [];
       dataFetchStatus: string = "init";
 
 
@@ -121,9 +129,9 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
   selectedItems: any = null;
   selectedItems1: any = null;
   analyticsType:string='RA'
-  violationTypeList: Observable<any[]> = of([
-    { key: "0", label: "All Violations", icon: "pi", data: "all_violations" },
-  ]);
+  // violationTypeList: Observable<any[]> = of([
+  //   { key: "0", label: "All Violations", icon: "pi", data: "all_violations" },
+  // ]);
   dropdownSettings2: any;
   
   
@@ -151,6 +159,8 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
     this.ExcelRange = 0;
     this.getCameraList();
     this.getDepartmentList();
+    this.getParkingTypeList();
+    this.getViolationList();
     
 
     //.............lightbox configaration...........
@@ -199,10 +209,11 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
         }
       );
     }
+    
   }
 
   ngAfterViewInit() {
-    this.dataread();
+    // this.dataread();
   }
 
   public dataread() {
@@ -245,29 +256,69 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
   LatestHistory(){
     
       this.webServer.LatestHistory().subscribe((response:any) =>{
-        this.vpmsData = response.message
-        // console.log(this.vpmsData)
+        this.dataFetchStatus = 'init'
+        if(response.success){
+          this.dataFetchStatus = 'Loading'
+          this.isLatestvpmsData = true
+          this.vpmsData = []
+          this.latestvpmsData = response.message
+        }
+        else{
+          this.dataFetchStatus = 'success'
+          this.isLatestvpmsData = false
+          this.latestvpmsData = []
+        }
+        
       })
 
     }
     
 
   OnlyParking(){
+    this.isLatestvpmsData = false
     this.webServer.OnlyParking().subscribe((response:any) =>{
-      this.vpmsData= response.message
+      this.dataFetchStatus = 'init'
+      if(response.success){
+        this.dataFetchStatus = 'Loading'
+        this.vpmsData= response.message
+      }
+      else{
+        this.vpmsData = []
+        this.dataFetchStatus = "success"
+      }
+
+      
     })
   }
 
   OnlyNo_Parking(){
+    this.isLatestvpmsData = false
     this.webServer.OnlyNo_Parking().subscribe((response:any) =>{
-      this.vpmsData= response.message
+      this.dataFetchStatus = 'init'
+      if(response.success){
+        this.dataFetchStatus = 'Loading'
+        this.vpmsData= response.message
+      }
+      else{
+        this.dataFetchStatus = 'success'
+        this.vpmsData = []
+      }
     })
   }
 
 
   Violations(){
+    this.isLatestvpmsData = false
     this.webServer.Violations().subscribe((response:any) =>{
-      this.vpmsData= response.message
+       this.dataFetchStatus = 'init'
+      if(response.success){
+        this.vpmsData= response.message
+      }
+      else{
+        this.dataFetchStatus = 'success'
+        this.vpmsData = []
+      }
+      
     })
   }
 
@@ -326,8 +377,10 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
       "YYYY-MM-DD HH:mm:ss"
     );
     this.toDate = this.selectedMoments.endDate.format("YYYY-MM-DD HH:mm:ss");
+    this.getParkingTypeList()
     this.getCameraList();
     this.getDepartmentList();
+    this.getViolationList();
     this.Subsciption ? this.Subsciption.unsubscribe() : "";
 
     this.pageSize = 30;
@@ -342,7 +395,10 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
         null,
         null,
         this.selectedDepartment ? this.selectedDepartment.data : null,
-        this.selectedCameraId ? this.selectedCameraId.data : null
+        this.selectedCameraId ? this.selectedCameraId.data : null,
+        this.selectedParkingType? this .selectedParkingType.data :null,
+        this.selectedViolationType?this.selectedViolationType.data:null
+
       )
       .subscribe(
         (Response: any) => {
@@ -371,7 +427,10 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
                   this.page,
                   this.pageSize,
                   this.selectedDepartment ? this.selectedDepartment.data : null,
-                  this.selectedCameraId ? this.selectedCameraId.data : null
+                  this.selectedCameraId ? this.selectedCameraId.data : null,
+                  this.selectedParkingType? this .selectedParkingType.data :null,
+                  this.selectedViolationType?this.selectedViolationType.data:null
+
                 )
                 .subscribe(
                   (Response: any) => {
@@ -536,10 +595,133 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
     // this.dataread();
   }
 
+  OnParkingTypeSelect(){
+    this.dataFetchStatus='init'
+    // this.page=1
+    // this.pageSize=30
+    // // this.total=of(0)
+    //  this.violData=of([])
+    // !this.isdatewise ? (this.page = 1) : "";
+    // this.selectedCameraId = this.selectedItems.data;
+    if (this.isdatewise) {
+      this.webServer
+        .DatewiseRAViolations(
+          this.fromDate,
+          this.toDate,
+          this.page,
+          this.pageSize,
+          this.selectedCameraId ? this.selectedCameraId.data : null,
+          this.selectedDepartment ? this.selectedDepartment.data : null,
+          this.selectedParkingType? this .selectedParkingType.data :null,
+          this.selectedViolationType?this.selectedViolationType.data:null
+
+        )
+        .subscribe(
+          (Rdata: any) => {
+            if (Rdata) {
+              this.dataFetchStatus = "success";
+
+              this.isLatest = false;
+              // table?.classList.remove("loading");
+              this.vpmsData = Rdata.message
+              if (!Rdata.success) {
+                this.notification(Rdata.message);
+                this.dataFetchStatus = "success";
+                // this.imageData = Rdata.message;
+            //   this.total = of(Rdata.message.length);
+              // this.tempdata = Rdata.message;
+              this.violData = of(Rdata.message);
+              } else {
+              }
+              var cviol = Rdata.message;
+              // Rdata.success
+              //   ? (this.tempdata = Rdata.message)
+              //   : (this.tempdata = []);
+            //   this.sliceVD();
+              this.loader2 = false;
+              this.isdatewise = false;
+              
+            }
+          },
+          (Err) => {
+            this.dataFetchStatus='Error'
+            this.loader2 = false;
+          }
+        );
+    } else {
+      this.Submit();
+    }
+    // this.dataread();
+
+
+  }
+  OnViolationSelect(){
+    this.dataFetchStatus='init'
+    // this.page=1
+    // this.pageSize=30
+    // // this.total=of(0)
+    //  this.violData=of([])
+    // !this.isdatewise ? (this.page = 1) : "";
+    // this.selectedCameraId = this.selectedItems.data;
+    if (this.isdatewise) {
+      this.webServer
+        .DatewiseRAViolations(
+          this.fromDate,
+          this.toDate,
+          this.page,
+          this.pageSize,
+          this.selectedCameraId ? this.selectedCameraId.data : null,
+          this.selectedDepartment ? this.selectedDepartment.data : null,
+          this.selectedParkingType? this .selectedParkingType.data :null,
+          this.selectedViolationType?this.selectedViolationType.data:null
+
+        )
+        .subscribe(
+          (Rdata: any) => {
+            if (Rdata) {
+              this.dataFetchStatus = "success";
+
+              this.isLatest = false;
+              // table?.classList.remove("loading");
+              this.vpmsData = Rdata.message
+              if (!Rdata.success) {
+                this.notification(Rdata.message);
+                this.dataFetchStatus = "success";
+                // this.imageData = Rdata.message;
+            //   this.total = of(Rdata.message.length);
+              // this.tempdata = Rdata.message;
+              this.violData = of(Rdata.message);
+              } else {
+              }
+              var cviol = Rdata.message;
+              // Rdata.success
+              //   ? (this.tempdata = Rdata.message)
+              //   : (this.tempdata = []);
+            //   this.sliceVD();
+              this.loader2 = false;
+              this.isdatewise = false;
+              
+            }
+          },
+          (Err) => {
+            this.dataFetchStatus='Error'
+            this.loader2 = false;
+          }
+        );
+    } else {
+      this.Submit();
+    }
+    // this.dataread();
+
+
+  }
+
   ResetFilters() {
     this.selectedMoments = null;
     this.selectedDepartment = null;
     this.selectedCameraId = null;
+    this.selectedParkingType = null;
+    this.selectedViolationType = null;
     this.isdatewise = false;
     this.dataFetchStatus = "Loading";
     this.BackToToday();
@@ -550,6 +732,8 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
     this.selectedItems = null;
     this.selectedCameraId = null;
     this.selectedDepartment = null;
+    this.selectedParkingType = null;
+    this.selectedViolationType = null;
     this.selectedItems1 = null;
     this.page = 1;
     this.Images = [];
@@ -787,7 +971,11 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
         null,
         null,
         department ? department : null,
-        cameraName ? cameraName : null
+        cameraName ? cameraName : null,
+        this.selectedParkingType? this .selectedParkingType.data :null,
+        this.selectedViolationType?this.selectedViolationType.data:null
+
+
       )
       .subscribe((Response: any) => {
         if (Response.success) {
@@ -933,9 +1121,9 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
           : null
       )
       .subscribe((data: any) => {
-        if (data.success === true) {
-          data.message.forEach((el: any, i: number) => {
-            cameraIdList.push({ cameraid: i, cameraname: el });
+        if (data.status === true) {
+          data.msg.forEach((el: any, i: number) => {
+            cameraIdList.push({ cameraid: i, cameraname: el }); 
           });
           cameraIdList = cameraIdList.filter((el, i, a) => i === a.indexOf(el));
           cameraIdList.forEach((element: any, i: number) => {
@@ -996,6 +1184,61 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
           this.dropdownList1 = of(departmentlist);
         }
       });
+  }
+
+  getParkingTypeList() {
+    var parkingTypelist: any[] = [];
+    var parkingTypeIdList: any[] = [];
+
+    parkingTypelist[0] = { key: "0", label: "All Type Parking", data: "all_type_parking" };
+    
+      var parkingtypes = ['Only Parking','Only No-Parking']
+          parkingtypes.forEach((el: any, i: number) => {
+            parkingTypeIdList.push({ parkingtypeid: i, parkingtypename: el }); 
+          });
+          parkingTypeIdList = parkingTypeIdList.filter((el, i, a) => i === a.indexOf(el));
+          parkingTypeIdList.forEach((element: any, i: number) => {
+            
+            var obj;
+            obj = {
+              key: (i + 1).toString(),
+              label: element.parkingtypename,
+              data: element.parkingtypename,
+            };
+
+            parkingTypelist.push(obj);
+          });
+
+          this.parkingTypeList = of(parkingTypelist);
+    
+  }
+
+
+  getViolationList() {
+    var violationlist: any[] = [];
+    var violationIdList: any[] = [];
+
+    // violationlist[0] = { key: "0", label: "All Type Parking", data: "all_type_parking" };
+    
+      var violation = ['Include Violation','Exclude Violation']
+          violation.forEach((el: any, i: number) => {
+            violationIdList.push({ violationid: i, violation: el }); 
+          });
+          violationIdList = violationIdList.filter((el, i, a) => i === a.indexOf(el));
+          violationIdList.forEach((element: any, i: number) => {
+            
+            var obj;
+            obj = {
+              key: (i + 1).toString(),
+              label: element.violation,
+              data: element.violation,
+            };
+
+            violationlist.push(obj);
+          });
+
+          this.violationTypeList = of(violationlist);
+    
   }
 
   //function to fetch the available violation types
@@ -1207,7 +1450,11 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
           null,
           null,
           this.selectedDepartment ? this.selectedDepartment.data : null,
-          this.selectedCameraId ? this.selectedCameraId.data : null
+          this.selectedCameraId ? this.selectedCameraId.data : null,
+          this.selectedParkingType? this .selectedParkingType.data :null,
+          this.selectedViolationType?this.selectedViolationType.data:null
+
+
         )
         .subscribe(
           (Response: any) => {
@@ -1235,7 +1482,11 @@ export class ParkingHistoryComponent implements OnInit, OnDestroy, AfterViewInit
                     this.selectedDepartment
                       ? this.selectedDepartment.data
                       : null,
-                    this.selectedCameraId ? this.selectedCameraId.data : null
+                    this.selectedCameraId ? this.selectedCameraId.data : null,
+                    this.selectedParkingType? this .selectedParkingType.data :null,
+                    this.selectedViolationType?this.selectedViolationType.data:null
+
+
                   )
                   .subscribe(
                     (Response: any) => {

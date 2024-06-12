@@ -77,13 +77,17 @@ export class ParkingHistoryService {
     page?: number | null,
     size?: number | null,
     department?: string | null,
-    cameraName?: string | null
+    cameraName?: string | null,
+    parkingType?:string |null,
+    violationType?:any| null,
   ) {
     var fromD = this.dateTransform(from);
     var toD = this.dateTransform(to);
 
     cameraName === "all_cameras" ? (cameraName = null) : "";
     department === "all_departments" ? (department = null) : "";
+    parkingType === "all_type_parking"? (parkingType = null):parkingType === "Only Parking"? (parkingType = 'PA'):parkingType === "Only No-Parking"?(parkingType = 'NPA'): null;
+    violationType === "Include Violation"?(violationType = 1): violationType === "Exclude Violation"? (violationType = 0): null;
     var body:any;
     // body = {
     //   from_date: fromD,
@@ -94,9 +98,9 @@ export class ParkingHistoryService {
     {
       from_date:fromD,
       to_date:toD,
-      cameraname:null,
-      violation_value:null,
-      parking_type:null,
+      cameraname:cameraName,
+      violation_value:violationType,
+      parking_type:parkingType,
       department:department
   }
 
@@ -127,15 +131,15 @@ export class ParkingHistoryService {
   }
 
   GetRACameraDetails(from: any, to: any) {
-    var fromD = this.dateTransform(from)
-    var toD = this.dateTransform(to)
-    return from === null && to === null
-      ? this.http.get(this.IP + "/camera_detailsRA")
-      : this.http.post(this.IP + "/camera_detailsRA", {
-          from_date: from,
-          to_date: to,
-        });
-    // return this.http.get(this.IP +"/cameralist")
+    // var fromD = this.dateTransform(from)
+    // var toD = this.dateTransform(to)
+    // return from === null && to === null
+    //   ? this.http.get(this.IP + "/camera_detailsRA")
+    //   : this.http.post(this.IP + "/camera_detailsRA", {
+    //       from_date: from,
+    //       to_date: to,
+    //     });
+    return this.http.get(this.IP +"/cameralist")
   }
 
   GetRADepartmentDetails(from: any, to: any) {
@@ -175,6 +179,7 @@ export class ParkingHistoryService {
   LatestHistory(){
     return this.http.get(this.IP+"/latest_parking_history")
   }
+
   Violations(){
     return this.http.get(this.IP + "/violations_data")
   }
