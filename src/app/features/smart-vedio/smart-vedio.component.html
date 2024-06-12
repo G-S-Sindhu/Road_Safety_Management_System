@@ -1,0 +1,157 @@
+<div class="container-fluid dashboard-content">
+    <h3 class="page-header">
+        Smart Video Recording
+    </h3>
+    <div class="row">
+        <div class="col-12">
+            <div class="float-end"><span class="text-muted">Application Status :</span><span
+                    [ngClass]="isLive!=null?isLive ?'success-badge':'danger-badge':''">{{isLive?'Running':'Stopped'}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-xl-12 mb-3">
+
+            <div class="d-flex flex-row align-items-center mb-2 mt-4 card p-2" id="data-card"
+                style="border-radius:7px !important;">
+
+
+
+                <div class="">
+                    <div class="container p-3">
+                        <fa-icon icon="filter"></fa-icon>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="row d-flex align-items-center">
+                        <span class="col-4">
+                            <div class="me-1 ms-2 date-picker">
+                                <input ngxDaterangepickerMd #datepicker (datesUpdated)="dateUpdated($event)"
+                                    [timePicker]="true" placeholder="Select Date" (datesUpdated)="datesUpdated($event)"
+                                    class="form-control" [singleDatePicker]="true" [timePicker]="false"
+                                    [(ngModel)]="selectedMoments" required>
+                                <fa-icon icon="calendar"></fa-icon>
+
+                            </div>
+                        </span>
+                        <span class="col-4" id="filter">
+
+                            <p-treeSelect containerStyleClass="w-full" class="w-100" [(ngModel)]="selectedCoinId"
+                                [ngModelOptions]=" 
+                {standalone: true}" [options]="coinIdList|async" (onNodeSelect)="OnCoinSelect($event)"
+                                placeholder="Select Coin Id"></p-treeSelect>
+
+                        </span>
+                        <span class="col-4" id="filter">
+                            <p-treeSelect containerStyleClass="w-full" class="w-100" [(ngModel)]="selectedCamera"
+                                [ngModelOptions]=" 
+                {standalone: true}" [options]="cameraList|async" (onNodeSelect)="onCameraSelect($event)"
+                                placeholder="Select Camera Name"></p-treeSelect>
+                        </span>
+
+                    </div>
+                </div>
+                <button class="btn default-tertiary ms-3 me-3"
+                    *ngIf="(selectedCam!= ' ' || selectedCoin!=' ' ||selectedMoments.startDate!=null)"
+                    (click)="Reset()">Reset</button>
+
+
+            </div>
+            <div class="card" id="data-card">
+
+                <div class="card-header">
+                    <div class="">
+                        <h5 class="float-start"> Recording Details</h5>
+                        <span class="float-end">
+
+                        </span>
+                    </div>
+                    <div class="float-end"><span class="text-muted">Date :</span><span
+                            class="text-dark">{{selectedDate}}</span></div>
+                </div>
+
+                <ng-scrollbar #scrollable track="horizontal" pointerEventsMethod="scrollbar"
+                    [autoHeightDisabled]="false" [disabled]="false">
+
+
+                    <table class="table table-bordered mt-3" id="dataTable"
+                        style="max-width:100%;overflow-x: scroll;border-radius: 10px !important;">
+
+                        <thead>
+                            <tr>
+
+                                <th scope="col" style="border-radius: 10px !important;">
+                                    SI no
+                                </th>
+                                <th scope="col">Coin ID</th>
+
+                                <th scope="col">Camera Name</th>
+                                <th scope="col">Camera IP</th>
+
+                                <th scope="col">Video</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of violationDetails|async;let i=index" class="p-3">
+                                <td>{{data.SNo}}</td>
+                                <td>{{data.coinid}}</td>
+
+                                <td>{{data.cameraname}}</td>
+                                <td>{{data.camera_ip}}</td>
+
+                                <!-- <td><div>
+                        <video width="200" height="55" [poster]="data.poster_image"preload="none"  controls>
+                            <source [src]="data.video_name" type="video/mp4">
+                          
+                        </video>
+                        
+                    </div></td> -->
+                                <td>
+                                    <div class="btn-icon" (click)="openVideoModal(data.SNo)"><fa-icon
+                                            icon="video"></fa-icon></div>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </ng-scrollbar>
+                <div class="d-flex mx-auto justify-content-center p-1">
+                    <ngb-pagination [collectionSize]="total|async" [(page)]="page" [pageSize]="pageSize"
+                        style="width: 95vw;overflow-x: auto;" (pageChange)="sliceData()">
+                    </ngb-pagination>
+
+                    <div class="d-flex mx-auto justify-content-start">
+                        <select class="form-select" style="width:auto" [(ngModel)]="pageSize"
+                            (ngModelChange)="sliceData()">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="15">15</option>
+                            <option [ngValue]="20">20</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <ng-template #modal let-modal>
+            <div class="modal-header">
+                <h3>Smart Video Recordings</h3>
+                <button type="button" class="btn default-tertiary close float-end" aria-label="Close"
+                    (click)="modal.close('Cross click')">
+                    <span aria-hidden="true" class="font-primary">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body" style="width:100%;height:100%"
+                    class="d-flex justify-centent-center align-items-center">
+                    <!--  <div class="container"> -->
+                    <div style="width:100%;height:100%;">
+                        <app-video-modal (closeModal)="modalClose($event)" [SelectedId]="selectedVideoId|async"
+                            [Data]="videoData" [IP]="IP"></app-video-modal>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </ng-template>

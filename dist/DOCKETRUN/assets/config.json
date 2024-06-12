@@ -1,0 +1,9 @@
+{
+  "IP": "http://localhost:5001",
+  "hooterDelay": 250,
+  "relayDelay": 15000,
+  "logInterval": 3000,
+  "dashboardInterval": 30000,
+  "SensgizInterval": 3000,
+  "jobSheetStatusInterval": 30000
+}
